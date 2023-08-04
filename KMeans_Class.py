@@ -1,3 +1,9 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+import seaborn as sns
+
 class KMeans:
     def __init__(self, k, X, y, threshold):
         self.k = k
@@ -36,17 +42,14 @@ class KMeans:
         return total/k
 
     def fit(self):
-    #Initializing centroids
-    centers = list()
-    for i in range(k):
-        centers.append(self.X[np.random.randint(self.X.shape[0], size = 1)])
-    
-    #KMeans 
-    scalar_product = 10e7
-    while scalar_product > self.threshold:
-        previous_centers = centers.copy()
-        clusters = self.assign_clusters(centers)
-        centers = self.calculate_centers(clusters, centers)
-        scalar_product = self.calculate_scalar(previous_centers, centers)
-        print(scalar_product)
-    return centers
+        #Initializing centroids
+        centers = self.assign_center()
+        #KMeans 
+        scalar_product = 10e7
+        while scalar_product > self.threshold:
+            previous_centers = centers.copy()
+            clusters = self.assign_clusters(centers)
+            centers = self.calculate_centers(clusters, centers)
+            scalar_product = self.calculate_scalar(previous_centers, centers)
+            print(scalar_product)
+        return centers
