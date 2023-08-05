@@ -41,8 +41,8 @@ for itr, col in enumerate(df.columns):
         pass
 
 #Replacing or Dropping columns that contain '?' in them with suitable values
-df = df.drop(['weight'], axis = 1)
 df['medical_specialty'] = df['medical_specialty'].replace('?', 'Unknown')
+df['weight'] = df['weight'].replace('?', np.mean(pd.to_numeric(df['weight'], errors='coerce')))
 df = df.replace('?', np.nan)
 df = df.dropna()
 
@@ -70,7 +70,7 @@ X_norm = scaler.transform(X)
 
 
 #RUNNING KMEANS ALGORITHM USING SCIKIT LEARN
-kmeans = KMeans(n_clusters = 2, random_state = 0, n_init = 'auto').fit(X_norm)
+kmeans = KMeans(n_clusters = 2, random_state = 0, n_init = 10).fit(X_norm)
 
 #Calculating accuracy
 #Note: KMeans should not be used to measure accuracy its a clustering technique and not classification.
