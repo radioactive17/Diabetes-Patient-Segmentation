@@ -5,7 +5,7 @@ plt.style.use('ggplot')
 import seaborn as sns
 
 class KMeans:
-    def __init__(self, k, X, y, threshold):
+    def __init__(self, k, X, y, threshold = 100):
         self.k = k
         self.X = X
         self.y = y
